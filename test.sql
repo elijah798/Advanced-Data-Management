@@ -42,7 +42,7 @@ RETURNS int AS $$
 DECLARE
     times_rented int;
 BEGIN
-    SELECT COUNT(*) INTO times_rented FROM detailed WHERE film.title = $1;
+    SELECT COUNT(*) INTO times_rented FROM detailed WHERE detailed.title = $1;
     RETURN times_rented;
 END;
 $$ LANGUAGE plpgsql;
@@ -90,12 +90,6 @@ $$;
 
 CALL refresh_data(); 
 
-
-
-
-
-
-
-
-
+SELECT * FROM detailed;
+SELECT * FROM summary;
 
