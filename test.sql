@@ -1,4 +1,3 @@
---postgres
 
 DROP TABLE IF EXISTS detailed;
 
@@ -14,6 +13,13 @@ CREATE TABLE detailed (
 
 SELECT * FROM detailed;
 
+DROP TABLE IF EXISTS summary;
+
+CREATE TABLE summary (
+    times_rented int,
+    title varchar(255),
+    release_year char(4),
+);
 
 
 
