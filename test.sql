@@ -1,3 +1,7 @@
+--This code is ran in PGAdmin which runs the DVD rental postgres Database. Code was written in VS Code with testing done in PGAdmin.
+
+
+-- This section creates the tables Detailed and Summary
 
 DROP TABLE IF EXISTS detailed;
 
@@ -21,9 +25,10 @@ CREATE TABLE summary (
     release_year char(4),
 );
 
+SELECT * FROM summary;
 
 
---ADD DATA SECTION
+--This Section adds data to the Detailed table.
 
 INSERT INTO detailed (inventory_id, film_id, last_update, rental_id, rental_date, release_year, title)
 SELECT inventory.inventory_id, film.film_id, inventory.last_update, rental.rental_id, rental.rental_date, film.release_year, film.title
@@ -34,7 +39,7 @@ INNER JOIN rental ON inventory.inventory_id = rental.inventory_id;
 SELECT * FROM detailed;
 
 
---Transformation for detailed and summary section 
+--This creates the Transform function
 
 
 CREATE OR REPLACE FUNCTION times_rented(title varchar(255))
@@ -51,7 +56,7 @@ ALTER TABLE detailed ADD COLUMN times_rented int;
 
 UPDATE detailed SET times_rented = times_rented(title);
 
---TRIGGER ON DETAILED SECTION
+--This is the trigger function used to update the summary section.
 
 CREATE OR REPLACE FUNCTION update_summary()
 RETURNS trigger AS $$
@@ -70,7 +75,8 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_summary();
 
 
---PROCEDURE
+--This is the stored procedure used.
+--Procedure should be ran every 2-3 months. this can be automated with a task scheduler like pgAgent
 
 CREATE OR REPLACE PROCEDURE refresh_data()
 LANGUAGE plpgsql
