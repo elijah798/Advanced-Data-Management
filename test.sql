@@ -1,4 +1,4 @@
---This code is ran in PGAdmin which runs the DVD rental postgres Database. Code was written in VS Code with testing done in PGAdmin.
+--This code is ran in PGAdmin, An administration and development platform for postgres. It run a the DVD rental postgres Database server. Code was written in VS Code with testing done in PGAdmin.
 
 
 -- This section creates the tables Detailed and Summary
